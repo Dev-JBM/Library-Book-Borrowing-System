@@ -21,6 +21,7 @@ class User extends Authenticatable
         'name',
         'email',
         'password',
+        'role',
     ];
 
     /**
@@ -44,5 +45,21 @@ class User extends Authenticatable
             'email_verified_at' => 'datetime',
             'password' => 'hashed',
         ];
+    }
+
+    /**
+     * Return whether the user is an admin.
+     */
+    public function isAdmin(): bool
+    {
+        return isset($this->role) && $this->role === 'admin';
+    }
+
+    /**
+     * Backwards-compatible snake_case helper for templates or older code.
+     */
+    public function is_admin(): bool
+    {
+        return $this->isAdmin();
     }
 }
