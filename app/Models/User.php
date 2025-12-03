@@ -17,6 +17,12 @@ class User extends Authenticatable
      *
      * @var list<string>
      */
+
+    public function activeBorrowings()
+    {
+        return $this->hasMany(Borrowing::class)->whereNull('returned_at');
+    }
+
     protected $fillable = [
         'name',
         'email',
