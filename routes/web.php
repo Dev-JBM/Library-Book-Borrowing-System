@@ -3,6 +3,7 @@
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Auth\LoginController;
 use App\Http\Controllers\Auth\RegisterController;
+use App\Http\Controllers\AdminController;
 
 
 Route::get('/', function () {
@@ -32,8 +33,12 @@ Route::get('/books/search', function () {
     return view('books.search');
 })->middleware(['auth'])->name('books.search');
 
+
+// Admin Panel routes
 use App\Http\Middleware\IsAdmin;
 
-Route::get('/admin/dashboard', function () {
-    return view('admin.dashboard');
-})->middleware(['auth', IsAdmin::class])->name('admin.dashboard');
+Route::middleware(['auth', \App\Http\Middleware\IsAdmin::class])->group(function () {
+    Route::get('/admin/dashboard', [AdminController::class, 'index'])->name('admin.dashboard');
+    Route::post('/admin/books', [AdminController::class, 'storeBook'])->name('books.store');
+    Route::patch('/admin/borrowings/{id}/return', [AdminController::class, 'markAsReturned'])->name('admin.return');
+});
