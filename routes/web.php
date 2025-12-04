@@ -4,6 +4,8 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Auth\LoginController;
 use App\Http\Controllers\Auth\RegisterController;
 use App\Http\Controllers\AdminController;
+use App\Http\Controllers\BookController;
+
 
 
 Route::get('/', function () {
@@ -28,11 +30,10 @@ Route::post('/logout', [LoginController::class, 'logout'])->name('logout');
 Route::get('/register', [RegisterController::class, 'showRegistrationForm'])->name('register');
 Route::post('/register', [RegisterController::class, 'register']);
 
-// Placeholder routes for redirects after login
-Route::get('/books/search', function () {
-    return view('books.search');
-})->middleware(['auth'])->name('books.search');
-
+// Search Books route — using BookController
+Route::get('/books/search', [BookController::class, 'search'])
+    ->middleware(['auth'])
+    ->name('books.search');
 
 // Admin Panel routes
 use App\Http\Middleware\IsAdmin;

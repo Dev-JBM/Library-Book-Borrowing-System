@@ -1,11 +1,7 @@
-<!doctype html>
-<html lang="en">
+@extends('layouts.app')
 
-<head>
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>Book Search</title>
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+@section('content')
+<div class="container mt-4">
     <style>
         :root {
             --primary: #0f4c81;
@@ -20,27 +16,54 @@
             background-color: var(--primary) !important;
         }
     </style>
-</head>
 
-<body class="bg-light">
-    <div class="container mt-4">
-        <div class="d-flex justify-content-between align-items-center mb-3">
-            <h3 class="mb-0">Book Search (Placeholder)</h3>
-            <form method="POST" action="{{ url('/logout') }}">
-                @csrf
-                <button class="btn btn-outline-primary">Logout</button>
+    <div class="d-flex justify-content-between align-items-center mb-3">
+        <h3 class="mb-0">Search Books</h3>
+        <form method="POST" action="{{ url('/logout') }}">
+            @csrf
+            <button class="btn btn-outline-primary">Logout</button>
+        </form>
+    </div>
+
+    <!-- Search Form -->
+    <div class="card mb-4">
+        <div class="card-body">
+            <form action="{{ route('books.search') }}" method="GET" class="d-flex">
+                <input type="text" name="q" value="{{ request('q') }}" placeholder="Search by title, author, or ISBN" class="form-control me-2">
+                <button type="submit" class="btn btn-primary">Search</button>
             </form>
         </div>
+    </div>
 
+    <!-- Search Results -->
+    @if(isset($books) && $books->count())
         <div class="card">
             <div class="card-body">
-                <p>This is a placeholder page for the regular user landing area. The search UI will be implemented here later.</p>
-
-                <div class="alert alert-secondary">Use the navigation to find books, borrow items, and view your account.</div>
+                <table class="table table-bordered mb-0">
+                    <thead>
+                        <tr>
+                            <th>Title</th>
+                            <th>Author</th>
+                            <th>ISBN</th>
+                            <th>Stock</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @foreach($books as $book)
+                        <tr>
+                            <td>{{ $book->title }}</td>
+                            <td>{{ $book->author }}</td>
+                            <td>{{ $book->isbn }}</td>
+                            <td>{{ $book->stock }}</td>
+                        </tr>
+                        @endforeach
+                    </tbody>
+                </table>
+                {{ $books->links() }} <!-- Pagination links -->
             </div>
         </div>
-    </div>
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
-</body>
-
-</html>
+    @else
+        <div class="alert alert-warning">No books found.</div>
+    @endif
+</div>
+@endsection
