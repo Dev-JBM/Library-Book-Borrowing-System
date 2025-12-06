@@ -15,6 +15,7 @@ copy .env.example .env
 # Edit .env: Set DB_CONNECTION=mysql and create the database 'library_book_borrowing_system' in phpMyAdmin
 php artisan key:generate
 php artisan migrate --seed
+php artisan db:seed --class=BookSeeder
 php artisan serve --host=127.0.0.1 --port=8000
 Start-Process "http://127.0.0.1:8000/login"
 ```
