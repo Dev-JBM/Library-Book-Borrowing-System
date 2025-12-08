@@ -24,6 +24,15 @@ class BookController extends Controller
         // Pagination
         $books = $query->paginate(10);
 
+        // Pass hasOverdue to the search view to control button state and messaging
+        $hasOverdue = false;
+        if (auth()->check()) {
+            $hasOverdue = \App\Models\Borrowing::where('user_id', auth()->id())
+                ->whereNull('returned_at')
+                ->where('due_date', '<', now())
+                ->exists();
+        }
+
         // Return the view
         return view('books.search', compact('books', 'search'));
     }
