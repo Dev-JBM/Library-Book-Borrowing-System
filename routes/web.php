@@ -43,3 +43,12 @@ Route::middleware(['auth', \App\Http\Middleware\IsAdmin::class])->group(function
     Route::post('/admin/books', [AdminController::class, 'storeBook'])->name('books.store');
     Route::patch('/admin/borrowings/{id}/return', [AdminController::class, 'markAsReturned'])->name('admin.return');
 });
+
+// Borrow routes
+use App\Http\Controllers\BorrowingController;
+
+Route::middleware(['auth'])->group(function () {
+    Route::post('/borrowings', [BorrowingController::class, 'store'])->name('borrowings.store');
+    Route::patch('/borrowings/{id}/return', [BorrowingController::class, 'return'])->name('borrowings.return');
+});
+
