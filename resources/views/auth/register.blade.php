@@ -47,6 +47,7 @@
                 transform: translateY(-14px);
                 opacity: 0;
             }
+
             to {
                 transform: translateY(0);
                 opacity: 1;
@@ -58,6 +59,7 @@
                 opacity: 0;
                 transform: scale(.96);
             }
+
             to {
                 opacity: 1;
                 transform: scale(1);
@@ -105,9 +107,11 @@
             0% {
                 transform: translateY(0px);
             }
+
             50% {
                 transform: translateY(-8px);
             }
+
             100% {
                 transform: translateY(0px);
             }
@@ -140,11 +144,11 @@
                         <div class="mb-3">
                             <label for="name" class="form-label text-white">Full Name</label>
                             <input type="text"
-                                   class="form-control @error('name') is-invalid @enderror"
-                                   id="name"
-                                   name="name"
-                                   value="{{ old('name') }}"
-                                   required autofocus>
+                                class="form-control @error('name') is-invalid @enderror"
+                                id="name"
+                                name="name"
+                                value="{{ old('name') }}"
+                                required autofocus>
                             @error('name')
                             <div class="invalid-feedback">{{ $message }}</div>
                             @enderror
@@ -153,11 +157,11 @@
                         <div class="mb-3">
                             <label for="email" class="form-label text-white">Email Address</label>
                             <input type="email"
-                                   class="form-control @error('email') is-invalid @enderror"
-                                   id="email"
-                                   name="email"
-                                   value="{{ old('email') }}"
-                                   required>
+                                class="form-control @error('email') is-invalid @enderror"
+                                id="email"
+                                name="email"
+                                value="{{ old('email') }}"
+                                required>
                             @error('email')
                             <div class="invalid-feedback">{{ $message }}</div>
                             @enderror
@@ -166,22 +170,24 @@
                         <div class="mb-3">
                             <label for="password" class="form-label text-white">Password</label>
                             <input type="password"
-                                   class="form-control @error('password') is-invalid @enderror"
-                                   id="password"
-                                   name="password"
-                                   required>
+                                class="form-control @error('password') is-invalid @enderror"
+                                id="password"
+                                name="password"
+                                required>
                             @error('password')
                             <div class="invalid-feedback">{{ $message }}</div>
                             @enderror
                         </div>
 
+                        <!-- Password requirements are enforced server-side; errors will display after submission -->
+
                         <div class="mb-3">
                             <label for="password_confirmation" class="form-label text-white">Confirm Password</label>
                             <input type="password"
-                                   class="form-control"
-                                   id="password_confirmation"
-                                   name="password_confirmation"
-                                   required>
+                                class="form-control"
+                                id="password_confirmation"
+                                name="password_confirmation"
+                                required>
                         </div>
 
                         <div class="mb-3 form-check text-white">
@@ -207,7 +213,7 @@
     </div>
 
     <script>
-        document.getElementById('show_password_toggle')?.addEventListener('change', function () {
+        document.getElementById('show_password_toggle')?.addEventListener('change', function() {
             const p = document.getElementById('password');
             const pc = document.getElementById('password_confirmation');
 
@@ -217,4 +223,5 @@
     </script>
 
 </body>
+
 </html>
